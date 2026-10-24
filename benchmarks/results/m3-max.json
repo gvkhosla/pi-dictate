@@ -1,0 +1,1506 @@
+{
+  "createdAt": "2026-10-24T17:50:11.199Z",
+  "corpus": "Ten synthetic coding requests (macOS Samantha voice)",
+  "synthetic": true,
+  "vocabulary": "TypeScript, React, Next.js, Tailwind CSS, shadcn, Vitest, Playwright, PostgreSQL, Supabase, Prisma, Zod, pnpm, GitHub Actions, pi-dictate, OAuth",
+  "sampleCount": 10,
+  "repeats": 2,
+  "warmupCalls": 4,
+  "environment": {
+    "platform": "darwin",
+    "arch": "arm64",
+    "cpu": "Apple M3 Max",
+    "memoryGiB": 36,
+    "node": "v24.18.0",
+    "whisper": "whisper.cpp version: 1.9.5"
+  },
+  "method": "Identical audio in all four conditions; rotated condition order; fresh whisper-cli per call; warmup excluded. WER lowercases and splits on non-letter/non-number characters. It ignores case/punctuation, not word substitutions. No transcript rewriting.",
+  "summary": [
+    {
+      "model": "small.en",
+      "hints": false,
+      "observations": 20,
+      "words": 210,
+      "errors": 14,
+      "wer": 0.06666666666666667,
+      "medianSeconds": 0.38402835399999824,
+      "medianRealtimeFactor": 0.11415743723631028,
+      "exactMatches": 12
+    },
+    {
+      "model": "small.en",
+      "hints": true,
+      "observations": 20,
+      "words": 210,
+      "errors": 0,
+      "wer": 0,
+      "medianSeconds": 0.38848960400000215,
+      "medianRealtimeFactor": 0.11486501301062817,
+      "exactMatches": 20
+    },
+    {
+      "model": "medium.en",
+      "hints": false,
+      "observations": 20,
+      "words": 210,
+      "errors": 8,
+      "wer": 0.0380952380952381,
+      "medianSeconds": 0.8852995415000005,
+      "medianRealtimeFactor": 0.2614561486874034,
+      "exactMatches": 14
+    },
+    {
+      "model": "medium.en",
+      "hints": true,
+      "observations": 20,
+      "words": 210,
+      "errors": 0,
+      "wer": 0,
+      "medianSeconds": 0.8905516874999975,
+      "medianRealtimeFactor": 0.2628917083217661,
+      "exactMatches": 20
+    }
+  ],
+  "rows": [
+    {
+      "sample": "settings",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.37765158300000073,
+      "audioSeconds": 3.2474375,
+      "reference": "Add a dark mode toggle to the settings page and run the tests.",
+      "transcript": "Add a dark mode toggle to the settings page and run the tests.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "settings",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.3870011249999989,
+      "audioSeconds": 3.2474375,
+      "reference": "Add a dark mode toggle to the settings page and run the tests.",
+      "transcript": "Add a dark mode toggle to the settings page and run the tests.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "settings",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.852458208,
+      "audioSeconds": 3.2474375,
+      "reference": "Add a dark mode toggle to the settings page and run the tests.",
+      "transcript": "Add a dark mode toggle to the settings page and run the tests.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "settings",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.8647090830000016,
+      "audioSeconds": 3.2474375,
+      "reference": "Add a dark mode toggle to the settings page and run the tests.",
+      "transcript": "Add a dark mode toggle to the settings page and run the tests.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "typescript",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.381903624999999,
+      "audioSeconds": 3.5886875,
+      "reference": "Convert the React component to TypeScript and fix the type errors.",
+      "transcript": "Convert the React component to TypeScript and fix the type errors.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "typescript",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.9446445409999996,
+      "audioSeconds": 3.5886875,
+      "reference": "Convert the React component to TypeScript and fix the type errors.",
+      "transcript": "Convert the React component to TypeScript and fix the type errors.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "typescript",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.8681493750000009,
+      "audioSeconds": 3.5886875,
+      "reference": "Convert the React component to TypeScript and fix the type errors.",
+      "transcript": "Convert the React component to TypeScript and fix the type errors.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "typescript",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.37452658300000075,
+      "audioSeconds": 3.5886875,
+      "reference": "Convert the React component to TypeScript and fix the type errors.",
+      "transcript": "Convert the React component to TypeScript and fix the type errors.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tailwind",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.8459962080000005,
+      "audioSeconds": 3.0343125,
+      "reference": "Use Tailwind CSS to make the layout work on mobile.",
+      "transcript": "Use Tailwind CSS to make the layout work on mobile.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tailwind",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.8601279999999988,
+      "audioSeconds": 3.0343125,
+      "reference": "Use Tailwind CSS to make the layout work on mobile.",
+      "transcript": "Use Tailwind CSS to make the layout work on mobile.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tailwind",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.38914695800000115,
+      "audioSeconds": 3.0343125,
+      "reference": "Use Tailwind CSS to make the layout work on mobile.",
+      "transcript": "Use Tailwind CSS to make the layout work on mobile.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tailwind",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.3874120419999999,
+      "audioSeconds": 3.0343125,
+      "reference": "Use Tailwind CSS to make the layout work on mobile.",
+      "transcript": "Use Tailwind CSS to make the layout work on mobile.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "forms",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.8976864160000004,
+      "audioSeconds": 2.7605625,
+      "reference": "Add a shadcn dialog and validate the form with Zod.",
+      "transcript": "Add a shadcn dialog and validate the form with zod.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "forms",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.38748683399999934,
+      "audioSeconds": 2.7605625,
+      "reference": "Add a shadcn dialog and validate the form with Zod.",
+      "transcript": "Add a shadow and dialog and validate the form with ZOD.",
+      "score": {
+        "words": 10,
+        "errors": 2,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 1,
+        "wer": 0.2
+      }
+    },
+    {
+      "sample": "forms",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.39272975000000226,
+      "audioSeconds": 2.7605625,
+      "reference": "Add a shadcn dialog and validate the form with Zod.",
+      "transcript": "Add a shadcn dialog and validate the form with zod.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "forms",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.8847165830000012,
+      "audioSeconds": 2.7605625,
+      "reference": "Add a shadcn dialog and validate the form with Zod.",
+      "transcript": "Add a Shadbin dialog and validate the form with Zod.",
+      "score": {
+        "words": 10,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.1
+      }
+    },
+    {
+      "sample": "tests",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.4061367500000015,
+      "audioSeconds": 3.8151875,
+      "reference": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "transcript": "Write videst tests for the parser and play write tests for the login flow.",
+      "score": {
+        "words": 13,
+        "errors": 3,
+        "substitutions": 2,
+        "deletions": 0,
+        "insertions": 1,
+        "wer": 0.23076923076923078
+      }
+    },
+    {
+      "sample": "tests",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.42079499999999825,
+      "audioSeconds": 3.8151875,
+      "reference": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "transcript": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tests",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.9274851249999992,
+      "audioSeconds": 3.8151875,
+      "reference": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "transcript": "Write Vitast tests for the parser and Playwrite tests for the login flow.",
+      "score": {
+        "words": 13,
+        "errors": 2,
+        "substitutions": 2,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.15384615384615385
+      }
+    },
+    {
+      "sample": "tests",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.9354665829999976,
+      "audioSeconds": 3.8151875,
+      "reference": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "transcript": "Write vitest tests for the parser and playwright tests for the login flow.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "database",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.3798973750000005,
+      "audioSeconds": 3.2751875,
+      "reference": "Connect Prisma to PostgreSQL and apply the migration.",
+      "transcript": "Connect Prisma to PostgreSQL and apply the migration.",
+      "score": {
+        "words": 8,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "database",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.9058107500000006,
+      "audioSeconds": 3.2751875,
+      "reference": "Connect Prisma to PostgreSQL and apply the migration.",
+      "transcript": "Connect Prisma to PostgreSQL and apply the migration.",
+      "score": {
+        "words": 8,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "database",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.8695572500000016,
+      "audioSeconds": 3.2751875,
+      "reference": "Connect Prisma to PostgreSQL and apply the migration.",
+      "transcript": "Connect Prisma to PostgreSQL and apply the migration.",
+      "score": {
+        "words": 8,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "database",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.37399970899999974,
+      "audioSeconds": 3.2751875,
+      "reference": "Connect Prisma to PostgreSQL and apply the migration.",
+      "transcript": "Connect Prisma to PostgreSQL and apply the migration.",
+      "score": {
+        "words": 8,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "auth",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.8576935000000012,
+      "audioSeconds": 3.65175,
+      "reference": "Update the Supabase client without changing the OAuth callback.",
+      "transcript": "Update the superbase client without changing the OAuth callback.",
+      "score": {
+        "words": 9,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.1111111111111111
+      }
+    },
+    {
+      "sample": "auth",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.8681530419999981,
+      "audioSeconds": 3.65175,
+      "reference": "Update the Supabase client without changing the OAuth callback.",
+      "transcript": "Update the Supabase client without changing the OAuth callback.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "auth",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.3809916669999984,
+      "audioSeconds": 3.65175,
+      "reference": "Update the Supabase client without changing the OAuth callback.",
+      "transcript": "Update the Superbase client without changing the OAuth callback.",
+      "score": {
+        "words": 9,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.1111111111111111
+      }
+    },
+    {
+      "sample": "auth",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.3806084589999991,
+      "audioSeconds": 3.65175,
+      "reference": "Update the Supabase client without changing the OAuth callback.",
+      "transcript": "Update the Supabase client without changing the OAuth callback.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "ci",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.8652629159999997,
+      "audioSeconds": 3.3630625,
+      "reference": "Run pnpm install and fix the GitHub Actions workflow.",
+      "transcript": "Run pnpm install and fix the GitHub Actions workflow.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "ci",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.3838028750000012,
+      "audioSeconds": 3.3630625,
+      "reference": "Run pnpm install and fix the GitHub Actions workflow.",
+      "transcript": "Run pnpm install and fix the GitHub Actions workflow.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "ci",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.3800162089999976,
+      "audioSeconds": 3.3630625,
+      "reference": "Run pnpm install and fix the GitHub Actions workflow.",
+      "transcript": "Run pnpm install and fix the GitHub Actions workflow.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "ci",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.8592008750000023,
+      "audioSeconds": 3.3630625,
+      "reference": "Run pnpm install and fix the GitHub Actions workflow.",
+      "transcript": "Run pnpm install and fix the GitHub Actions workflow.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "dictation",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.3810276249999988,
+      "audioSeconds": 3.39975,
+      "reference": "Keep pi-dictate local and do not send the prompt automatically.",
+      "transcript": "Keep high dictate local and do not send the prompt automatically.",
+      "score": {
+        "words": 11,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.09090909090909091
+      }
+    },
+    {
+      "sample": "dictation",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.3866789580000004,
+      "audioSeconds": 3.39975,
+      "reference": "Keep pi-dictate local and do not send the prompt automatically.",
+      "transcript": "Keep pi-dictate local and do not send the prompt automatically.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "dictation",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.8858824999999997,
+      "audioSeconds": 3.39975,
+      "reference": "Keep pi-dictate local and do not send the prompt automatically.",
+      "transcript": "Keep Pi Dictate local and do not send the prompt automatically.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "dictation",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.892710167000001,
+      "audioSeconds": 3.39975,
+      "reference": "Keep pi-dictate local and do not send the prompt automatically.",
+      "transcript": "Keep pi-dictate local and do not send the prompt automatically.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "negation",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.38337920800000214,
+      "audioSeconds": 3.4125,
+      "reference": "Please do not delete the cache or rename the authentication module.",
+      "transcript": "Please do not delete the cache or rename the authentication module.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "negation",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.8547215830000023,
+      "audioSeconds": 3.4125,
+      "reference": "Please do not delete the cache or rename the authentication module.",
+      "transcript": "Please do not delete the cache or rename the authentication module.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "negation",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 1,
+      "seconds": 0.8981778330000015,
+      "audioSeconds": 3.4125,
+      "reference": "Please do not delete the cache or rename the authentication module.",
+      "transcript": "Please do not delete the cache or rename the authentication module.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "negation",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 1,
+      "seconds": 0.37787770899999307,
+      "audioSeconds": 3.4125,
+      "reference": "Please do not delete the cache or rename the authentication module.",
+      "transcript": "Please do not delete the cache or rename the authentication module.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "settings",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.40097899999999936,
+      "audioSeconds": 3.2474375,
+      "reference": "Add a dark mode toggle to the settings page and run the tests.",
+      "transcript": "Add a dark mode toggle to the settings page and run the tests.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "settings",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.891757958999995,
+      "audioSeconds": 3.2474375,
+      "reference": "Add a dark mode toggle to the settings page and run the tests.",
+      "transcript": "Add a dark mode toggle to the settings page and run the tests.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "settings",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.8934089999999997,
+      "audioSeconds": 3.2474375,
+      "reference": "Add a dark mode toggle to the settings page and run the tests.",
+      "transcript": "Add a dark mode toggle to the settings page and run the tests.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "settings",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.38933454200000417,
+      "audioSeconds": 3.2474375,
+      "reference": "Add a dark mode toggle to the settings page and run the tests.",
+      "transcript": "Add a dark mode toggle to the settings page and run the tests.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "typescript",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.8792085420000003,
+      "audioSeconds": 3.5886875,
+      "reference": "Convert the React component to TypeScript and fix the type errors.",
+      "transcript": "Convert the React component to TypeScript and fix the type errors.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "typescript",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.888393207999994,
+      "audioSeconds": 3.5886875,
+      "reference": "Convert the React component to TypeScript and fix the type errors.",
+      "transcript": "Convert the React component to TypeScript and fix the type errors.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "typescript",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.3822361249999958,
+      "audioSeconds": 3.5886875,
+      "reference": "Convert the React component to TypeScript and fix the type errors.",
+      "transcript": "Convert the React component to TypeScript and fix the type errors.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "typescript",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.3944819579999967,
+      "audioSeconds": 3.5886875,
+      "reference": "Convert the React component to TypeScript and fix the type errors.",
+      "transcript": "Convert the React component to TypeScript and fix the type errors.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tailwind",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.9397022910000015,
+      "audioSeconds": 3.0343125,
+      "reference": "Use Tailwind CSS to make the layout work on mobile.",
+      "transcript": "Use Tailwind CSS to make the layout work on mobile.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tailwind",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.3925993329999983,
+      "audioSeconds": 3.0343125,
+      "reference": "Use Tailwind CSS to make the layout work on mobile.",
+      "transcript": "Use Tailwind CSS to make the layout work on mobile.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tailwind",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.3891497080000045,
+      "audioSeconds": 3.0343125,
+      "reference": "Use Tailwind CSS to make the layout work on mobile.",
+      "transcript": "Use Tailwind CSS to make the layout work on mobile.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tailwind",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.9176836250000051,
+      "audioSeconds": 3.0343125,
+      "reference": "Use Tailwind CSS to make the layout work on mobile.",
+      "transcript": "Use Tailwind CSS to make the layout work on mobile.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "forms",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.3933184160000019,
+      "audioSeconds": 2.7605625,
+      "reference": "Add a shadcn dialog and validate the form with Zod.",
+      "transcript": "Add a shadow and dialog and validate the form with ZOD.",
+      "score": {
+        "words": 10,
+        "errors": 2,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 1,
+        "wer": 0.2
+      }
+    },
+    {
+      "sample": "forms",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.40278087500000403,
+      "audioSeconds": 2.7605625,
+      "reference": "Add a shadcn dialog and validate the form with Zod.",
+      "transcript": "Add a shadcn dialog and validate the form with zod.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "forms",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.9056580000000031,
+      "audioSeconds": 2.7605625,
+      "reference": "Add a shadcn dialog and validate the form with Zod.",
+      "transcript": "Add a Shadbin dialog and validate the form with Zod.",
+      "score": {
+        "words": 10,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.1
+      }
+    },
+    {
+      "sample": "forms",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.9154882079999952,
+      "audioSeconds": 2.7605625,
+      "reference": "Add a shadcn dialog and validate the form with Zod.",
+      "transcript": "Add a shadcn dialog and validate the form with zod.",
+      "score": {
+        "words": 10,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tests",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.4168880419999987,
+      "audioSeconds": 3.8151875,
+      "reference": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "transcript": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tests",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.920559500000003,
+      "audioSeconds": 3.8151875,
+      "reference": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "transcript": "Write Vitast tests for the parser and Playwrite tests for the login flow.",
+      "score": {
+        "words": 13,
+        "errors": 2,
+        "substitutions": 2,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.15384615384615385
+      }
+    },
+    {
+      "sample": "tests",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.952117041999998,
+      "audioSeconds": 3.8151875,
+      "reference": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "transcript": "Write vitest tests for the parser and playwright tests for the login flow.",
+      "score": {
+        "words": 13,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "tests",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.43716345899999576,
+      "audioSeconds": 3.8151875,
+      "reference": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "transcript": "Write videst tests for the parser and play write tests for the login flow.",
+      "score": {
+        "words": 13,
+        "errors": 3,
+        "substitutions": 2,
+        "deletions": 0,
+        "insertions": 1,
+        "wer": 0.23076923076923078
+      }
+    },
+    {
+      "sample": "database",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.9008267080000005,
+      "audioSeconds": 3.2751875,
+      "reference": "Connect Prisma to PostgreSQL and apply the migration.",
+      "transcript": "Connect Prisma to PostgreSQL and apply the migration.",
+      "score": {
+        "words": 8,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "database",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.8629320000000007,
+      "audioSeconds": 3.2751875,
+      "reference": "Connect Prisma to PostgreSQL and apply the migration.",
+      "transcript": "Connect Prisma to PostgreSQL and apply the migration.",
+      "score": {
+        "words": 8,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "database",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.3842538329999952,
+      "audioSeconds": 3.2751875,
+      "reference": "Connect Prisma to PostgreSQL and apply the migration.",
+      "transcript": "Connect Prisma to PostgreSQL and apply the migration.",
+      "score": {
+        "words": 8,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "database",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.3843122499999954,
+      "audioSeconds": 3.2751875,
+      "reference": "Connect Prisma to PostgreSQL and apply the migration.",
+      "transcript": "Connect Prisma to PostgreSQL and apply the migration.",
+      "score": {
+        "words": 8,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "auth",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.9282781669999968,
+      "audioSeconds": 3.65175,
+      "reference": "Update the Supabase client without changing the OAuth callback.",
+      "transcript": "Update the Supabase client without changing the OAuth callback.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "auth",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.39840787499999714,
+      "audioSeconds": 3.65175,
+      "reference": "Update the Supabase client without changing the OAuth callback.",
+      "transcript": "Update the Superbase client without changing the OAuth callback.",
+      "score": {
+        "words": 9,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.1111111111111111
+      }
+    },
+    {
+      "sample": "auth",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.3898740420000031,
+      "audioSeconds": 3.65175,
+      "reference": "Update the Supabase client without changing the OAuth callback.",
+      "transcript": "Update the Supabase client without changing the OAuth callback.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "auth",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.8675217499999999,
+      "audioSeconds": 3.65175,
+      "reference": "Update the Supabase client without changing the OAuth callback.",
+      "transcript": "Update the superbase client without changing the OAuth callback.",
+      "score": {
+        "words": 9,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.1111111111111111
+      }
+    },
+    {
+      "sample": "ci",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.3762459999999992,
+      "audioSeconds": 3.3630625,
+      "reference": "Run pnpm install and fix the GitHub Actions workflow.",
+      "transcript": "Run pnpm install and fix the GitHub Actions workflow.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "ci",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.39320666699999857,
+      "audioSeconds": 3.3630625,
+      "reference": "Run pnpm install and fix the GitHub Actions workflow.",
+      "transcript": "Run pnpm install and fix the GitHub Actions workflow.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "ci",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.86175,
+      "audioSeconds": 3.3630625,
+      "reference": "Run pnpm install and fix the GitHub Actions workflow.",
+      "transcript": "Run pnpm install and fix the GitHub Actions workflow.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "ci",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.8830032499999942,
+      "audioSeconds": 3.3630625,
+      "reference": "Run pnpm install and fix the GitHub Actions workflow.",
+      "transcript": "Run pnpm install and fix the GitHub Actions workflow.",
+      "score": {
+        "words": 9,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "dictation",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.3965379580000008,
+      "audioSeconds": 3.39975,
+      "reference": "Keep pi-dictate local and do not send the prompt automatically.",
+      "transcript": "Keep pi-dictate local and do not send the prompt automatically.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "dictation",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.891888583,
+      "audioSeconds": 3.39975,
+      "reference": "Keep pi-dictate local and do not send the prompt automatically.",
+      "transcript": "Keep Pi Dictate local and do not send the prompt automatically.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "dictation",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.9197277920000051,
+      "audioSeconds": 3.39975,
+      "reference": "Keep pi-dictate local and do not send the prompt automatically.",
+      "transcript": "Keep pi-dictate local and do not send the prompt automatically.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "dictation",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.3895353329999998,
+      "audioSeconds": 3.39975,
+      "reference": "Keep pi-dictate local and do not send the prompt automatically.",
+      "transcript": "Keep high dictate local and do not send the prompt automatically.",
+      "score": {
+        "words": 11,
+        "errors": 1,
+        "substitutions": 1,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0.09090909090909091
+      }
+    },
+    {
+      "sample": "negation",
+      "model": "medium.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.860739791,
+      "audioSeconds": 3.4125,
+      "reference": "Please do not delete the cache or rename the authentication module.",
+      "transcript": "Please do not delete the cache or rename the authentication module.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "negation",
+      "model": "medium.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.8786769159999968,
+      "audioSeconds": 3.4125,
+      "reference": "Please do not delete the cache or rename the authentication module.",
+      "transcript": "Please do not delete the cache or rename the authentication module.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "negation",
+      "model": "small.en",
+      "hints": false,
+      "repetition": 2,
+      "seconds": 0.37817158300000303,
+      "audioSeconds": 3.4125,
+      "reference": "Please do not delete the cache or rename the authentication module.",
+      "transcript": "Please do not delete the cache or rename the authentication module.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    },
+    {
+      "sample": "negation",
+      "model": "small.en",
+      "hints": true,
+      "repetition": 2,
+      "seconds": 0.3878294999999998,
+      "audioSeconds": 3.4125,
+      "reference": "Please do not delete the cache or rename the authentication module.",
+      "transcript": "Please do not delete the cache or rename the authentication module.",
+      "score": {
+        "words": 11,
+        "errors": 0,
+        "substitutions": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "wer": 0
+      }
+    }
+  ]
+}

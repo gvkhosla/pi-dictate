@@ -10,7 +10,7 @@ const theme = { fg: (_color: unknown, text: string) => text };
 const config = { sox: "fake", whisper: "fake", model: "fake", language: "en" };
 const tick = () => delay(0);
 
-function harness(options: { transcribe?: Dependencies["transcribe"]; mode?: string; failConfig?: boolean; setup?: Dependencies["setup"] } = {}) {
+function harness(options: { transcribe?: Dependencies["transcribe"]; mode?: string; failConfig?: boolean; setup?: Dependencies["setup"]; vocabulary?: string } = {}) {
   let command: (args: string, ctx: ExtensionContext) => Promise<void>;
   let shutdown: () => Promise<void>;
   let input: ((data: string) => unknown) | undefined;
@@ -22,7 +22,7 @@ function harness(options: { transcribe?: Dependencies["transcribe"]; mode?: stri
   const notices: string[] = [];
   const dependencies: Dependencies = {
     setup: options.setup,
-    config: () => { if (options.failConfig) throw new Error("missing model"); return config; },
+    config: () => { if (options.failConfig) throw new Error("missing model"); return { ...config, vocabulary: options.vocabulary }; },
     record: (_sox, onAudio) => { records++; const rec = capture(onAudio); captures.push(rec); return rec; },
     transcribe: async (...args) => { transcriptions++; return options.transcribe ? options.transcribe(...args) : "dictated text"; },
   };
@@ -280,6 +280,39 @@ test("status and ready configurations never invoke first-run setup", async () =>
   assert.equal(setups, 0);
   assert.equal(ready.records, 1);
   await ready.shutdown();
+});
+
+test("session vocabulary can be set, disabled, and reset without opening the microphone", async () => {
+  const seen: Array<string | undefined> = [];
+  const h = harness({ vocabulary: "Prisma", transcribe: async (_pcm, config) => { seen.push(config.vocabulary); return "unchanged output"; } });
+  try {
+    await h.command("vocab TypeScript, shadcn");
+    assert.equal(h.records, 0);
+    await h.command("vocab " + "x".repeat(401)); // Bad edits preserve the old setting.
+    assert.match(h.notices.at(-1)!, /maximum 400/);
+    await h.toggle(); await h.toggle(); await tick();
+    await h.command("vocab off");
+    await h.toggle(); await h.toggle(); await tick();
+    await h.command("vocab reset");
+    await h.toggle(); await h.toggle(); await tick();
+    assert.deepEqual(seen, ["TypeScript, shadcn", undefined, "Prisma"]);
+    assert.equal(h.editor, "existing draft unchanged output unchanged output unchanged output");
+    await h.command("vocab TypeScript");
+    await h.shutdown();
+    await h.toggle(); await h.toggle(); await tick();
+    assert.equal(seen.at(-1), "Prisma"); // Session changes discard session-only hints.
+  } finally { await h.shutdown(); }
+});
+
+test("vocabulary cannot change an in-flight dictation", async () => {
+  const h = harness();
+  try {
+    await h.command("vocab");
+    assert.equal(h.records, 0);
+    await h.command("");
+    await h.command("vocab TypeScript");
+    assert.match(h.notices.at(-1)!, /Finish or cancel/);
+  } finally { await h.shutdown(); }
 });
 
 test("noninteractive mode, missing model, and status never open the microphone", async () => {

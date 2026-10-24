@@ -16,6 +16,7 @@
     "setup": "bash scripts/setup.sh",
     "test": "node --experimental-strip-types --test --test-timeout=15000 test/*.test.ts",
     "test:tui": "python3 test/tui-smoke.py",
+    "benchmark": "node --experimental-strip-types scripts/benchmark.ts",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm test"
   },

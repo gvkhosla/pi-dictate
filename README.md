@@ -70,7 +70,9 @@ installation directly; invoking it is your consent. It does not show Pi's confir
 | Enter while recording | Stop and transcribe into the prompt |
 | Enter after reviewing | Send the prompt normally |
 | Esc | Cancel recording or transcription |
-| `/talk status` | Check dependencies and show the active model |
+| `/talk status` | Check dependencies, active model, and whether vocabulary hints are enabled |
+| `/talk vocab TypeScript, shadcn, Vitest` | Set optional vocabulary hints for this session |
+| `/talk vocab off` / `/talk vocab reset` | Disable hints / restore the environment default |
 | `/talk cancel` | Cancel programmatically; Esc is the keyboard path |
 
 Typing while recording or transcribing is preserved. Extra Enter presses during transcription
@@ -93,6 +95,24 @@ Allow your terminal microphone access when macOS asks. If it doesn't work:
 
 If macOS is still waiting for permission when recording times out, grant permission and retry.
 
+## Coding vocabulary
+
+Whisper can mishear unfamiliar library and project names. Give it a short list before recording:
+
+```text
+/talk vocab TypeScript, shadcn, Vitest, Playwright, Supabase, pi-dictate
+/talk
+```
+
+Hints are **off by default**, limited to 400 characters, and passed to local Whisper as an initial
+prompt—not an LLM rewrite or search through your files. They can bias recognition or introduce
+unspoken terms, so keep the list relevant and review the result. Hints do not guarantee spelling,
+capitalization, punctuation, or faithful recognition.
+
+Session hints reset when the session ends or the extension reloads. To set a persistent default,
+export `PI_DICTATE_VOCABULARY` before launching Pi. `/talk vocab off` overrides that default;
+`/talk vocab reset` restores it. Neither command starts the microphone.
+
 ## Model choice
 
 The default `small.en` model favors recognition quality over download size and memory use.
@@ -110,7 +130,17 @@ The lighter model is ~148 MB and checksum-verified. Start Pi from your project i
 to use it. Add the exported absolute path to your shell configuration if you want it persistent.
 Use `unset PI_DICTATE_MODEL` before launching Pi to return to the default.
 
-Setup never silently switches the active model or downloads both models.
+For an optional larger English model (~1.53 GB):
+
+```sh
+bash scripts/setup.sh medium.en
+export PI_DICTATE_MODEL="$PWD/models/ggml-medium.en.bin"
+```
+
+This model is also checksum-verified. Setup never silently switches the active model or downloads
+extra models. `small.en` remains the default: in our **ten-request synthetic baseline**, relevant
+vocabulary hints removed the measured word errors for both models, while `medium.en` took about
+2.3× longer. This is not a claim about your voice. See the [benchmark method and results](benchmarks/README.md).
 
 ## Configuration
 
@@ -120,6 +150,7 @@ Set these environment variables **before launching Pi**:
 | --- | --- | --- |
 | `PI_DICTATE_MODEL` | Checkout's `models/ggml-small.en.bin` | Absolute path to a whisper.cpp GGML model |
 | `PI_DICTATE_LANGUAGE` | `en` | Whisper language code |
+| `PI_DICTATE_VOCABULARY` | Off | Short comma-separated names/technical terms; maximum 400 characters |
 | `PI_DICTATE_SOX` | Found on PATH / Homebrew | Absolute path to SoX |
 | `PI_DICTATE_WHISPER` | Found on PATH / Homebrew | Absolute path to whisper-cli |
 
@@ -135,6 +166,7 @@ There is no cloud fallback.
 - Inference uses a private temporary directory, removed on success, failure, cancellation, or normal shutdown.
   A forced process/OS kill can leave temporary files in the OS temp directory.
 - Audio and transcripts are not logged by the extension. Models stay on disk.
+  The separate, opt-in developer benchmark retains its input audio and results under gitignored `.scratch/`.
 - **Text you choose to send to Pi goes to your configured Pi model as usual.**
 - Whisper can mishear or hallucinate, especially with noise. Review before sending.
 

@@ -1,6 +1,14 @@
 # Release verification
 
-## Unreleased: guided first-run setup
+## Unreleased: vocabulary and model comparison
+
+- 47 automated tests and TypeScript checks pass locally, including opt-in prompt arguments, length/control-character normalization, session override/off/reset behavior, and session cleanup.
+- Real Pi terminal tests pass at 80 and 40 columns, including vocabulary configuration before both ready-to-record and guided-setup flows. The fixture verifies hints reach inference; microphone input is synthetic.
+- Downloaded `medium.en` and verified its pinned SHA-256. The default remains `small.en`.
+- Ran 80 measured local transcriptions over ten generated coding requests, comparing both models with/without vocabulary. Full method, limitations, timings, and synthetic transcripts are in [benchmarks/README.md](benchmarks/README.md).
+- No human recordings were captured or used for this comparison. It does not establish recognition quality for the maintainer's voice or accent.
+
+## Earlier unreleased: guided first-run setup
 
 - 41 tests and TypeScript checks pass locally, including decline/no-install, custom overrides, setup failures, single-flight preparation, cancellation of installer subprocesses, and shutdown before microphone activation.
 - Real Pi TUI smoke tests pass at 80 and 40 columns for both ready installs and first-run confirmation/progress. The installer and microphone are synthetic in these tests; they do not modify Homebrew or download models.

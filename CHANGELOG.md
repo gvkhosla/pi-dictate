@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Optional local vocabulary hints via `/talk vocab`, with an environment default, bounded input, off/reset controls, and session cleanup. No automatic transcript rewriting.
+- Checksum-verified `medium.en` as an explicit alternative; keep `small.en` as default.
+- Reproducible local four-condition benchmark, synthetic coding corpus, WER/latency measurements, and support for private prerecorded comparisons.
+
 - Guided first-run `/talk` setup: explicit consent, installation/download progress, Escape cancellation, and automatic recording when ready.
 - Respect custom binary/model paths; never install Homebrew itself or modify invalid overrides automatically.
 - Cancel setup safely on reload/session shutdown and prevent duplicate setup runs.

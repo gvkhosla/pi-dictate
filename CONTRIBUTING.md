@@ -28,6 +28,7 @@ Tests must use synthetic input, not an open microphone or network inference.
 - `src/widget.ts`: theme-aware, width-bounded recording UI.
 - `scripts/setup.sh`: explicit dependency/model installation with pinned checksums.
 - `test/`: unit, subprocess, installer, and real-Pi terminal tests.
+- `scripts/benchmark*.ts`, `benchmarks/`: optional local recognition comparison; see [benchmark instructions](benchmarks/README.md).
 
 Include regression tests for changes. For recording/inference changes, check cancellation,
 reload/shutdown cleanup, and preservation of text typed during transcription.

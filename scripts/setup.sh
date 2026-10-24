@@ -4,8 +4,9 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 case "${1:-small.en}" in
   base.en) NAME="base.en"; SHA="a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002" ;;
   small.en) NAME="small.en"; SHA="c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d" ;;
-  -h|--help) echo "Usage: bash scripts/setup.sh [small.en|base.en] (default: small.en)"; exit 0 ;;
-  *) echo "Unknown model. Choose base.en (148 MB) or small.en (488 MB)." >&2; exit 1 ;;
+  medium.en) NAME="medium.en"; SHA="cc37e93478338ec7700281a7ac30a10128929eb8f427dda2e865faa8f6da4356" ;;
+  -h|--help) echo "Usage: bash scripts/setup.sh [small.en|base.en|medium.en] (default: small.en)"; exit 0 ;;
+  *) echo "Unknown model. Choose base.en (148 MB), small.en (488 MB), or medium.en (1.53 GB)." >&2; exit 1 ;;
 esac
 DEPENDENCIES_ONLY="${2:-}"
 [[ -z "$DEPENDENCIES_ONLY" || "$DEPENDENCIES_ONLY" == --dependencies-only ]] || { echo "Unknown setup option." >&2; exit 1; }

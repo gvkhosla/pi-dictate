@@ -3,6 +3,7 @@ import { matchesKey } from "@earendil-works/pi-tui";
 import { getConfig, MAX_SECONDS, Recorder, transcribe, type Config } from "./backend.ts";
 import { renderDictation, type DictationView } from "./widget.ts";
 import { prepareSetup } from "./setup.ts";
+import { normalizeVocabulary } from "./configuration.ts";
 
 type Capture = Pick<Recorder, "closed" | "seconds" | "level" | "clipping" | "expectedClose" | "error" | "stop" | "cancel">;
 export interface Dependencies {
@@ -30,6 +31,10 @@ export function appendTranscript(draft: string, transcript: string): string {
 
 export function installDictation(pi: ExtensionAPI, dependencies: Dependencies): void {
   let active: Job | undefined;
+  // undefined inherits the environment; an empty string explicitly disables hints.
+  let sessionVocabulary: string | undefined;
+  const withVocabulary = (config: Config): Config => sessionVocabulary === undefined
+    ? config : { ...config, vocabulary: normalizeVocabulary(sessionVocabulary) };
   let preparing: { abort: AbortController; done?: Promise<void> } | undefined;
 
   const finish = (job: Job) => {
@@ -176,7 +181,7 @@ export function installDictation(pi: ExtensionAPI, dependencies: Dependencies): 
           config = await dependencies.setup(error, ctx, preparation.abort.signal);
         }
         if (!config || preparation.abort.signal.aborted) return;
-        await startRecording(ctx, config);
+        await startRecording(ctx, withVocabulary(config));
       } catch (error) {
         if (!preparation.abort.signal.aborted) ctx.ui.notify(error instanceof Error ? error.message : String(error), "error");
       } finally {
@@ -191,18 +196,32 @@ export function installDictation(pi: ExtensionAPI, dependencies: Dependencies): 
     handler: async (args, ctx) => {
       const action = args.trim();
       if (action === "cancel") { await cancel(); return; }
-      if (action === "status") {
+      if (action === "vocab" || action.startsWith("vocab ")) {
+        if (active || preparing) { ctx.ui.notify("Finish or cancel dictation before changing vocabulary.", "warning"); return; }
+        const terms = action.slice(5).trim();
+        if (!terms) {
+          ctx.ui.notify("Use /talk vocab TypeScript, shadcn, Vitest (max 400 characters). Use /talk vocab off to disable or /talk vocab reset to use the environment default.", "info");
+          return;
+        }
         try {
-          const config = dependencies.config();
-          ctx.ui.notify(`Local dictation ready · /talk to record · Enter to transcribe · ${config.language}\nModel: ${config.model}`, "info");
+          if (terms === "reset") sessionVocabulary = undefined;
+          else sessionVocabulary = terms === "off" ? "" : normalizeVocabulary(terms) ?? "";
+          ctx.ui.notify(terms === "reset" ? "Vocabulary reset to the environment default." : sessionVocabulary ? "Vocabulary enabled for this session. Hints guide recognition; they do not rewrite your transcript." : "Vocabulary disabled for this session.", "info");
         } catch (error) { ctx.ui.notify(error instanceof Error ? error.message : String(error), "error"); }
         return;
       }
-      if (action) { ctx.ui.notify("Use /talk, /talk cancel, or /talk status.", "warning"); return; }
+      if (action === "status") {
+        try {
+          const config = withVocabulary(dependencies.config());
+          ctx.ui.notify(`Local dictation ready · /talk to record · Enter to transcribe · ${config.language}\nModel: ${config.model}\nVocabulary: ${config.vocabulary ? "enabled" : "off"}`, "info");
+        } catch (error) { ctx.ui.notify(error instanceof Error ? error.message : String(error), "error"); }
+        return;
+      }
+      if (action) { ctx.ui.notify("Use /talk, /talk cancel, /talk status, or /talk vocab <terms>.", "warning"); return; }
       await start(ctx);
     },
   });
-  pi.on("session_shutdown", async () => { await cancel(); });
+  pi.on("session_shutdown", async () => { sessionVocabulary = undefined; await cancel(); });
 }
 
 export default function dictate(pi: ExtensionAPI): void {

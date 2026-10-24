@@ -1,0 +1,57 @@
+{
+  "label": "Ten synthetic coding requests (macOS Samantha voice)",
+  "synthetic": true,
+  "vocabulary": "TypeScript, React, Next.js, Tailwind CSS, shadcn, Vitest, Playwright, PostgreSQL, Supabase, Prisma, Zod, pnpm, GitHub Actions, pi-dictate, OAuth",
+  "samples": [
+    {
+      "id": "settings",
+      "text": "Add a dark mode toggle to the settings page and run the tests.",
+      "rate": 165
+    },
+    {
+      "id": "typescript",
+      "text": "Convert the React component to TypeScript and fix the type errors.",
+      "rate": 185
+    },
+    {
+      "id": "tailwind",
+      "text": "Use Tailwind CSS to make the layout work on mobile.",
+      "rate": 165
+    },
+    {
+      "id": "forms",
+      "text": "Add a shadcn dialog and validate the form with Zod.",
+      "rate": 185
+    },
+    {
+      "id": "tests",
+      "text": "Write Vitest tests for the parser and Playwright tests for the login flow.",
+      "rate": 165
+    },
+    {
+      "id": "database",
+      "text": "Connect Prisma to PostgreSQL and apply the migration.",
+      "rate": 185
+    },
+    {
+      "id": "auth",
+      "text": "Update the Supabase client without changing the OAuth callback.",
+      "rate": 165
+    },
+    {
+      "id": "ci",
+      "text": "Run pnpm install and fix the GitHub Actions workflow.",
+      "rate": 185
+    },
+    {
+      "id": "dictation",
+      "text": "Keep pi-dictate local and do not send the prompt automatically.",
+      "rate": 165
+    },
+    {
+      "id": "negation",
+      "text": "Please do not delete the cache or rename the authentication module.",
+      "rate": 185
+    }
+  ]
+}

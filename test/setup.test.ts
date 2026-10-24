@@ -36,15 +36,16 @@ test("setup downloads the selected model, verifies its pinned hash, and is idemp
     for (const [name, sha] of [
       ["base.en", "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002"],
       ["small.en", "c6138d6d58ecc8322097e0f987c32f1be8bb0a18532a3f88f734d1bbf9c41e5d"],
+      ["medium.en", "cc37e93478338ec7700281a7ac30a10128929eb8f427dda2e865faa8f6da4356"],
     ]) {
       const result = await f.run([name]);
       assert.match(result.stdout, /ready/);
-      if (name === "base.en") assert.match(result.stdout, /PI_DICTATE_MODEL=/);
+      if (name !== "small.en") assert.match(result.stdout, /PI_DICTATE_MODEL=/);
       assert.equal(await readFile(join(f.root, "models", "ggml-" + name + ".bin"), "utf8"), "fixture model");
       assert.ok((await readFile(join(f.root, "checks"), "utf8")).includes(sha));
       await f.run([name]);
     }
-    assert.equal((await readFile(join(f.root, "downloads"), "utf8")).trim().split("\n").length, 2);
+    assert.equal((await readFile(join(f.root, "downloads"), "utf8")).trim().split("\n").length, 3);
   } finally { await f.cleanup(); }
 });
 

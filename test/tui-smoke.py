@@ -39,6 +39,10 @@ def run(width, onboarding=False):
                     output.extend(chunk)
         try:
             drain(2)
+            os.write(master, b"/talk vocab TypeScript, shadcn\r")
+            drain(0.5)
+            assert b"Vocabulary enabled" in output
+            assert "● Recording".encode() not in output
             os.write(master, b"/talk\r")  # Submit the command to start recording.
             if onboarding:
                 drain(0.5)

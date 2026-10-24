@@ -2,7 +2,7 @@ import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import type { Config } from "./configuration.ts";
+import { normalizeVocabulary, type Config } from "./configuration.ts";
 export { getConfig, type Config } from "./configuration.ts";
 
 export const SAMPLE_RATE = 16_000;
@@ -146,6 +146,7 @@ export class Recorder {
 /** Writes audio only inside a private directory, and waits for the child before deleting it. */
 export async function transcribe(pcm: Buffer, config: Config, signal: AbortSignal): Promise<string> {
   signal.throwIfAborted();
+  const vocabulary = normalizeVocabulary(config.vocabulary);
   const directory = await mkdtemp(join(tmpdir(), "pi-dictate-"));
   try {
     signal.throwIfAborted();
@@ -156,6 +157,7 @@ export async function transcribe(pcm: Buffer, config: Config, signal: AbortSigna
     const child = spawn(config.whisper, [
       "-m", config.model, "-f", input, "-l", config.language,
       "-otxt", "-of", output, "-nt", "-np", "-sns",
+      ...(vocabulary ? ["--prompt", `Technical vocabulary: ${vocabulary}`] : []),
     ], { stdio: ["pipe", "pipe", "pipe"] });
     child.stdin.end();
     child.stdout.resume(); // Transcript comes from the output file, never diagnostic stdout.

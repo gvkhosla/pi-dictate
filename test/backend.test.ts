@@ -91,6 +91,26 @@ fs.writeFileSync(out+'.txt', '  test transcription.\\n');
   } finally { await f.cleanup(); }
 });
 
+test("vocabulary is passed as one optional Whisper prompt argument, not a rewrite step", async () => {
+  const f = await fixture(`
+const fs = require('node:fs'); const path = require('node:path');
+const args = process.argv.slice(2);
+fs.writeFileSync(path.join(__dirname,'args.json'), JSON.stringify(args));
+fs.writeFileSync(args[args.indexOf('-of')+1]+'.txt', 'recognized words');
+`);
+  try {
+    const base = { whisper: f.executable, model: "unused", sox: "unused", language: "en" };
+    await transcribe(pcm, base, new AbortController().signal);
+    assert.ok(!(JSON.parse(await readFile(join(f.directory, "args.json"), "utf8")) as string[]).includes("--prompt"));
+    const result = await transcribe(pcm, { ...base, vocabulary: " TypeScript, shadcn; pi-dictate " }, new AbortController().signal);
+    const args = JSON.parse(await readFile(join(f.directory, "args.json"), "utf8")) as string[];
+    assert.equal(args[args.indexOf("--prompt") + 1], "Technical vocabulary: TypeScript, shadcn; pi-dictate");
+    assert.equal(args.filter((arg) => arg === "--prompt").length, 1);
+    assert.equal(result, "recognized words");
+    await assert.rejects(transcribe(pcm, { ...base, vocabulary: "x".repeat(401) }, new AbortController().signal), /maximum 400/);
+  } finally { await f.cleanup(); }
+});
+
 test("Whisper failure removes temporary files and includes useful diagnostic", async () => {
   const f = await fixture(`
 const fs = require('node:fs'); const path = require('node:path');

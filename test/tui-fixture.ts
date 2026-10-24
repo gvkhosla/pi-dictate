@@ -38,7 +38,8 @@ export default function fixture(pi: ExtensionAPI) {
       }, 100);
       return recorder;
     },
-    transcribe: async (_pcm, _config, signal) => {
+    transcribe: async (_pcm, config, signal) => {
+      if (config.vocabulary !== "TypeScript, shadcn") throw new Error("Session vocabulary did not reach inference.");
       await new Promise<void>((resolve) => setTimeout(resolve, 500));
       signal.throwIfAborted();
       return "Synthetic dictation inserted.";

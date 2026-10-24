@@ -66,6 +66,9 @@ test("configuration inspection reports only missing pieces and does no setup", a
     });
     await f.model();
     assert.equal(f.config().model, join(f.root, "models/ggml-small.en.bin"));
+    assert.equal(f.config().vocabulary, undefined);
+    assert.equal(f.config({ PI_DICTATE_VOCABULARY: " TypeScript,  Zod " }).vocabulary, "TypeScript, Zod");
+    assert.throws(() => f.config({ PI_DICTATE_VOCABULARY: "x".repeat(401) }), /maximum 400/);
   } finally { await f.cleanup(); }
 });
 

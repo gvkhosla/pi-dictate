@@ -7,6 +7,14 @@ export interface Config {
   whisper: string;
   model: string;
   language: string;
+  vocabulary?: string;
+}
+
+export function normalizeVocabulary(value: string | undefined): string | undefined {
+  if (value === undefined) return undefined;
+  const text = value.replace(/[\u0000-\u001f\u007f-\u009f]/g, " ").replace(/\s+/g, " ").trim();
+  if (text.length > 400) throw new Error("Vocabulary is too long (maximum 400 characters). Use a short list of names and technical terms.");
+  return text || undefined;
 }
 
 export interface SetupPlan {
@@ -53,6 +61,7 @@ export function getConfig(options: {
   const root = options.root ?? resolve(dirname(fileURLToPath(import.meta.url)), "..");
   const env = options.env ?? process.env;
   if ((options.platform ?? process.platform) !== "darwin") throw new Error("Local dictation currently supports macOS only.");
+  const vocabulary = normalizeVocabulary(env.PI_DICTATE_VOCABULARY);
   const searchPaths = options.searchPaths ?? [...(env.PATH ?? "").split(":").filter(Boolean), "/opt/homebrew/bin", "/usr/local/bin"];
   const sox = executable("sox", env.PI_DICTATE_SOX, searchPaths);
   const whisper = executable("whisper-cli", env.PI_DICTATE_WHISPER, searchPaths);
@@ -72,5 +81,5 @@ export function getConfig(options: {
     }
     throw new SetupRequiredError({ root, missing, downloadModel: !hasModel, brew, sox, whisper });
   }
-  return { sox: sox!, whisper: whisper!, model, language: env.PI_DICTATE_LANGUAGE ?? "en" };
+  return { sox: sox!, whisper: whisper!, model, language: env.PI_DICTATE_LANGUAGE ?? "en", vocabulary };
 }
