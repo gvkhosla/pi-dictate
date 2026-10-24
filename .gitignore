@@ -1,0 +1,12 @@
+node_modules/
+models/
+.scratch/
+*.log
+.env
+.env.*
+.DS_Store
+*.wav
+*.aiff
+*.pcm
+*.bin
+__pycache__/
