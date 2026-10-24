@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- Guided first-run `/talk` setup: explicit consent, installation/download progress, Escape cancellation, and automatic recording when ready.
+- Respect custom binary/model paths; never install Homebrew itself or modify invalid overrides automatically.
+- Cancel setup safely on reload/session shutdown and prevent duplicate setup runs.
+- Use `small.en` by default for potentially better recognition; retain `base.en` as an explicit lighter option.
+- Setup now downloads and verifies `small.en` unless a model is specified.
+
 ## 1.0.0
 
 First public release.

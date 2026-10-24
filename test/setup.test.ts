@@ -39,12 +39,33 @@ test("setup downloads the selected model, verifies its pinned hash, and is idemp
     ]) {
       const result = await f.run([name]);
       assert.match(result.stdout, /ready/);
-      if (name === "small.en") assert.match(result.stdout, /PI_DICTATE_MODEL=/);
+      if (name === "base.en") assert.match(result.stdout, /PI_DICTATE_MODEL=/);
       assert.equal(await readFile(join(f.root, "models", "ggml-" + name + ".bin"), "utf8"), "fixture model");
       assert.ok((await readFile(join(f.root, "checks"), "utf8")).includes(sha));
       await f.run([name]);
     }
     assert.equal((await readFile(join(f.root, "downloads"), "utf8")).trim().split("\n").length, 2);
+  } finally { await f.cleanup(); }
+});
+
+test("setup defaults to small.en without requiring an environment override", async () => {
+  const f = await fixture();
+  try {
+    const result = await f.run([]);
+    assert.match(result.stdout, /small.en model ready/);
+    assert.doesNotMatch(result.stdout, /PI_DICTATE_MODEL=/);
+    assert.deepEqual(await readdir(join(f.root, "models")), ["ggml-small.en.bin"]);
+  } finally { await f.cleanup(); }
+});
+
+test("dependency-only setup never downloads a model and validates binary overrides", async () => {
+  const f = await fixture();
+  try {
+    await f.run(["small.en", "--dependencies-only"]);
+    await assert.rejects(readFile(join(f.root, "downloads")));
+    await assert.rejects(readdir(join(f.root, "models")));
+    await assert.rejects(f.run(["small.en", "--dependencies-only"], { PI_DICTATE_SOX: "/missing/sox" }), /Invalid SoX override/);
+    await assert.rejects(f.run(["small.en", "--unknown"]), /Unknown setup option/);
   } finally { await f.cleanup(); }
 });
 

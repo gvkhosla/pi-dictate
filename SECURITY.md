@@ -8,6 +8,11 @@ The extension runs with Pi's operating-system permissions. It executes local SoX
 binaries, reads a local model, and temporarily writes microphone audio for inference.
 Only use executables and model files you trust. Setup downloads are checksum-verified.
 
+First-run setup asks before invoking Homebrew or downloading a model. Homebrew can update shared
+dependencies; cancelling keeps components already installed. Homebrew itself is never installed
+automatically. Invalid custom paths are not replaced. The standalone setup script is an explicit
+installation command and does not show the in-Pi confirmation dialog.
+
 There is no audio upload or cloud transcription. Submitted prompts still follow Pi's normal
 model-provider configuration. Temporary files are cleaned up during normal operation,
 not guaranteed after a forced kill or OS crash.

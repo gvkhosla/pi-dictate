@@ -1,5 +1,12 @@
 # Release verification
 
+## Unreleased: guided first-run setup
+
+- 41 tests and TypeScript checks pass locally, including decline/no-install, custom overrides, setup failures, single-flight preparation, cancellation of installer subprocesses, and shutdown before microphone activation.
+- Real Pi TUI smoke tests pass at 80 and 40 columns for both ready installs and first-run confirmation/progress. The installer and microphone are synthetic in these tests; they do not modify Homebrew or download models.
+- Existing local `small.en` inference still transcribes the generated smoke sample successfully.
+- These changes target `main` after v1.0.0; no new release tag is included. Check the repository's GitHub Actions runs for remote CI results.
+
 ## v1.0.0
 
 - Clean `npm ci --ignore-scripts`, TypeScript checks, and 25 automated tests pass locally on macOS/Apple Silicon.

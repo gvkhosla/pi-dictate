@@ -21,7 +21,9 @@ Tests must use synthetic input, not an open microphone or network inference.
 
 ## Code layout
 
-- `src/backend.ts`: dependency discovery, bounded capture, local inference, process/file cleanup.
+- `src/configuration.ts`: read-only dependency discovery, custom overrides, and explicit setup plans.
+- `src/setup.ts`: consent dialog, cancellable installer, progress, and readiness verification.
+- `src/backend.ts`: bounded capture, local inference, process/file cleanup.
 - `src/index.ts`: command lifecycle, cancellation, prompt insertion.
 - `src/widget.ts`: theme-aware, width-bounded recording UI.
 - `scripts/setup.sh`: explicit dependency/model installation with pinned checksums.
@@ -29,6 +31,8 @@ Tests must use synthetic input, not an open microphone or network inference.
 
 Include regression tests for changes. For recording/inference changes, check cancellation,
 reload/shutdown cleanup, and preservation of text typed during transcription.
+For setup changes, verify that declining never modifies the machine, Enter cannot submit during setup,
+and cancellation kills installer descendants without opening the microphone.
 For UI changes, keep Enter/Esc discoverable at narrow widths and use Pi's semantic theme colors.
 
 Please don't attach real recordings, private prompts, credentials, generated terminal captures,

@@ -2,10 +2,12 @@ import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-a
 import { matchesKey } from "@earendil-works/pi-tui";
 import { getConfig, MAX_SECONDS, Recorder, transcribe, type Config } from "./backend.ts";
 import { renderDictation, type DictationView } from "./widget.ts";
+import { prepareSetup } from "./setup.ts";
 
 type Capture = Pick<Recorder, "closed" | "seconds" | "level" | "clipping" | "expectedClose" | "error" | "stop" | "cancel">;
 export interface Dependencies {
   config: () => Config;
+  setup?: (error: unknown, ctx: ExtensionContext, signal: AbortSignal) => Promise<Config | undefined>;
   record: (sox: string, onAudio: () => void) => Capture;
   transcribe: typeof transcribe;
 }
@@ -28,6 +30,7 @@ export function appendTranscript(draft: string, transcript: string): string {
 
 export function installDictation(pi: ExtensionAPI, dependencies: Dependencies): void {
   let active: Job | undefined;
+  let preparing: { abort: AbortController; done?: Promise<void> } | undefined;
 
   const finish = (job: Job) => {
     clearInterval(job.timer);
@@ -48,6 +51,11 @@ export function installDictation(pi: ExtensionAPI, dependencies: Dependencies): 
   };
 
   const cancel = async () => {
+    if (preparing) {
+      const preparation = preparing;
+      preparation.abort.abort();
+      await preparation.done;
+    }
     const job = active;
     if (!job) return;
     if (job.cancellation) return job.cancellation;
@@ -84,17 +92,7 @@ export function installDictation(pi: ExtensionAPI, dependencies: Dependencies): 
     })();
   };
 
-  const start = async (ctx: ExtensionContext) => {
-    if (ctx.mode !== "tui") {
-      ctx.ui.notify("Dictation requires Pi's interactive terminal UI.", "warning");
-      return;
-    }
-    if (active) return;
-    let config: Config;
-    try { config = dependencies.config(); } catch (error) {
-      ctx.ui.notify(error instanceof Error ? error.message : String(error), "error");
-      return;
-    }
+  const startRecording = async (ctx: ExtensionContext, config: Config) => {
     const job: Job = {
       ctx, config, abort: new AbortController(), render: () => {},
       view: { phase: "starting", seconds: 0, levels: Array(12).fill(0) },
@@ -162,6 +160,32 @@ export function installDictation(pi: ExtensionAPI, dependencies: Dependencies): 
     } catch (error) { await fail(job, error); }
   };
 
+  const start = async (ctx: ExtensionContext) => {
+    if (ctx.mode !== "tui") {
+      ctx.ui.notify("Dictation requires Pi's interactive terminal UI.", "warning");
+      return;
+    }
+    if (active || preparing) return;
+    const preparation: { abort: AbortController; done?: Promise<void> } = { abort: new AbortController() };
+    preparing = preparation;
+    preparation.done = (async () => {
+      try {
+        let config: Config | undefined;
+        try { config = dependencies.config(); } catch (error) {
+          if (!dependencies.setup) throw error;
+          config = await dependencies.setup(error, ctx, preparation.abort.signal);
+        }
+        if (!config || preparation.abort.signal.aborted) return;
+        await startRecording(ctx, config);
+      } catch (error) {
+        if (!preparation.abort.signal.aborted) ctx.ui.notify(error instanceof Error ? error.message : String(error), "error");
+      } finally {
+        if (preparing === preparation) preparing = undefined;
+      }
+    })();
+    await preparation.done;
+  };
+
   pi.registerCommand("talk", {
     description: "Start local dictation; Enter transcribes into your prompt, Esc cancels",
     handler: async (args, ctx) => {
@@ -182,5 +206,5 @@ export function installDictation(pi: ExtensionAPI, dependencies: Dependencies): 
 }
 
 export default function dictate(pi: ExtensionAPI): void {
-  installDictation(pi, { config: getConfig, record: (sox, onAudio) => new Recorder(sox, onAudio), transcribe });
+  installDictation(pi, { config: getConfig, setup: prepareSetup, record: (sox, onAudio) => new Recorder(sox, onAudio), transcribe });
 }

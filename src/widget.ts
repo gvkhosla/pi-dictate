@@ -8,6 +8,13 @@ export interface DictationView {
   warning?: "quiet" | "clipping";
 }
 
+export function renderSetup(message: string, width: number, theme: Pick<Theme, "fg">): string[] {
+  return [
+    theme.fg("accent", `○ Setup · ${message}`),
+    theme.fg("muted", "Mic off · Esc cancel"),
+  ].map((line) => truncateToWidth(line, Math.max(0, width)));
+}
+
 export function elapsed(seconds: number): string {
   const total = Math.max(0, Math.floor(seconds));
   return `${Math.floor(total / 60)}:${String(total % 60).padStart(2, "0")}`;

@@ -1,45 +1,13 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
-import { accessSync, constants } from "node:fs";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
+import type { Config } from "./configuration.ts";
+export { getConfig, type Config } from "./configuration.ts";
 
 export const SAMPLE_RATE = 16_000;
 export const MAX_SECONDS = 120;
 const MAX_BYTES = SAMPLE_RATE * 2 * MAX_SECONDS;
-
-export interface Config {
-  sox: string;
-  whisper: string;
-  model: string;
-  language: string;
-}
-
-function executable(name: string, override?: string): string {
-  const paths = override ? [override] : [
-    ...(process.env.PATH ?? "").split(":").filter(Boolean).map((p) => join(p, name)),
-    `/opt/homebrew/bin/${name}`, `/usr/local/bin/${name}`,
-  ];
-  for (const path of paths) {
-    try { accessSync(path, constants.X_OK); return path; } catch { /* next candidate */ }
-  }
-  throw new Error(`${name} not found. Run npm run setup in pi-dictate.`);
-}
-
-export function getConfig(): Config {
-  if (process.platform !== "darwin") throw new Error("Local dictation currently supports macOS only.");
-  const model = process.env.PI_DICTATE_MODEL ?? join(dirname(fileURLToPath(import.meta.url)), "../models/ggml-base.en.bin");
-  try { accessSync(model, constants.R_OK); } catch {
-    throw new Error("Whisper model missing. Run npm run setup in pi-dictate.");
-  }
-  return {
-    sox: executable("sox", process.env.PI_DICTATE_SOX),
-    whisper: executable("whisper-cli", process.env.PI_DICTATE_WHISPER),
-    model,
-    language: process.env.PI_DICTATE_LANGUAGE ?? "en",
-  };
-}
 
 export function rms(pcm: Buffer): number {
   const count = Math.floor(pcm.length / 2);

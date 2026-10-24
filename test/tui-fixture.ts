@@ -1,10 +1,28 @@
 // Synthetic microphone for the real Pi TUI smoke test. Never loaded by the package manifest.
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { installDictation } from "../src/index.ts";
+import { SetupRequiredError } from "../src/configuration.ts";
+import { prepareSetup } from "../src/setup.ts";
+import { setTimeout as delay } from "node:timers/promises";
 
 export default function fixture(pi: ExtensionAPI) {
+  let ready = process.env.PI_DICTATE_TEST_ONBOARD !== "1";
+  const config = () => {
+    if (!ready) throw new SetupRequiredError({ root: "/synthetic", missing: ["SoX", "whisper.cpp", "small.en model"], downloadModel: true });
+    return { sox: "synthetic", whisper: "synthetic", model: "synthetic", language: "en" };
+  };
   installDictation(pi, {
-    config: () => ({ sox: "synthetic", whisper: "synthetic", model: "synthetic", language: "en" }),
+    config,
+    setup: (error, ctx, signal) => prepareSetup(error, ctx, signal, {
+      config,
+      install: async (_plan, signal, update) => {
+        update("Downloading model · 25%");
+        await delay(350, undefined, { signal });
+        update("Downloading model · 75%");
+        await delay(350, undefined, { signal });
+        ready = true;
+      },
+    }),
     record: (_sox, onAudio) => {
       const closed = Promise.withResolvers<{ code: number; signal: null }>();
       let frame = 0;

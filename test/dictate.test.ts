@@ -10,7 +10,7 @@ const theme = { fg: (_color: unknown, text: string) => text };
 const config = { sox: "fake", whisper: "fake", model: "fake", language: "en" };
 const tick = () => delay(0);
 
-function harness(options: { transcribe?: Dependencies["transcribe"]; mode?: string; failConfig?: boolean } = {}) {
+function harness(options: { transcribe?: Dependencies["transcribe"]; mode?: string; failConfig?: boolean; setup?: Dependencies["setup"] } = {}) {
   let command: (args: string, ctx: ExtensionContext) => Promise<void>;
   let shutdown: () => Promise<void>;
   let input: ((data: string) => unknown) | undefined;
@@ -21,6 +21,7 @@ function harness(options: { transcribe?: Dependencies["transcribe"]; mode?: stri
   let captures: ReturnType<typeof capture>[] = [];
   const notices: string[] = [];
   const dependencies: Dependencies = {
+    setup: options.setup,
     config: () => { if (options.failConfig) throw new Error("missing model"); return config; },
     record: (_sox, onAudio) => { records++; const rec = capture(onAudio); captures.push(rec); return rec; },
     transcribe: async (...args) => { transcriptions++; return options.transcribe ? options.transcribe(...args) : "dictated text"; },
@@ -227,6 +228,58 @@ test("mic health waits for sustained silence, clears on audio, and holds clippin
     t.mock.timers.tick(1100);
     assert.doesNotMatch(render(), /Clipping/);
   } finally { await h.shutdown(); t.mock.timers.reset(); }
+});
+
+test("first-run setup is single-flight and only records after successful preparation", async () => {
+  const ready = Promise.withResolvers<typeof config | undefined>();
+  let setups = 0;
+  const h = harness({ failConfig: true, setup: async () => { setups++; return ready.promise; } });
+  const starting = h.command("");
+  await tick();
+  await h.command("");
+  assert.equal(setups, 1);
+  assert.equal(h.records, 0);
+  ready.resolve(config);
+  await starting;
+  assert.equal(h.records, 1);
+  await h.shutdown();
+});
+
+test("declining setup leaves the draft intact and can be retried", async () => {
+  let setups = 0;
+  const h = harness({ failConfig: true, setup: async () => { setups++; return setups === 1 ? undefined : config; } });
+  await h.command("");
+  assert.equal(h.records, 0);
+  assert.equal(h.editor, "existing draft");
+  await h.command("");
+  assert.equal(h.records, 1);
+  await h.shutdown();
+});
+
+test("shutdown during setup suppresses even a late successful result", async () => {
+  const ready = Promise.withResolvers<typeof config | undefined>();
+  const h = harness({ failConfig: true, setup: () => ready.promise });
+  const starting = h.command("");
+  await tick();
+  const shutdown = h.shutdown();
+  ready.resolve(config);
+  await Promise.all([starting, shutdown]);
+  assert.equal(h.records, 0);
+  assert.equal(h.widget, undefined);
+  assert.deepEqual(h.notices, []);
+});
+
+test("status and ready configurations never invoke first-run setup", async () => {
+  let setups = 0;
+  const setup = async () => { setups++; return config; };
+  const missing = harness({ failConfig: true, setup });
+  await missing.command("status");
+  assert.equal(setups, 0);
+  const ready = harness({ setup });
+  await ready.command("");
+  assert.equal(setups, 0);
+  assert.equal(ready.records, 1);
+  await ready.shutdown();
 });
 
 test("noninteractive mode, missing model, and status never open the microphone", async () => {

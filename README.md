@@ -19,25 +19,54 @@ Illustrative terminal preview. The actual meter responds to your microphone.
 Requires **macOS**, **Node.js 24+**, [Homebrew](https://brew.sh), and **Pi 1.4+**.
 Live dictation has been confirmed on Apple Silicon; Intel Mac hardware has not been tested.
 
+> The `main` branch includes guided first-run setup and defaults to `small.en`.
+> The v1.0.0 tag still requires manual setup and defaults to `base.en`.
+
+Install the current `main` branch:
+
 ```sh
-git clone --branch v1.0.0 https://github.com/gvkhosla/pi-dictate.git
+pi install git:github.com/gvkhosla/pi-dictate
+```
+
+Then run **`/reload`**, followed by **`/talk`** in Pi.
+
+### First-run setup
+
+If anything is missing, `/talk` lists exactly what it needs and asks before changing your machine:
+
+- Install missing SoX / whisper.cpp with Homebrew (which may also update their dependencies).
+- Download the English Whisper `small.en` model (~488 MB) from Hugging Face and verify its SHA-256.
+
+The progress widget shows installation stages and download percentage with the microphone off.
+**Esc** cancels; successfully installed dependencies are kept. Once setup passes its checks,
+recording starts. Allow microphone access when macOS asks.
+Later uses of `/talk` skip setup entirely when everything is ready.
+
+Homebrew itself is never installed automatically. If it is needed but missing, install it from
+[brew.sh](https://brew.sh) and run `/talk` again. Custom model/binary overrides are respected;
+invalid custom paths must be fixed manually rather than overwritten.
+
+No `npm install` is needed to use the extension; Pi supplies its runtime packages.
+
+### Manual / local installation
+
+To use a local checkout (including the unreleased version) or install without the in-Pi wizard:
+
+```sh
+git clone https://github.com/gvkhosla/pi-dictate.git
 cd pi-dictate
 bash scripts/setup.sh
 pi install "$PWD"
 ```
 
-Then run **`/reload`** in Pi.
-
-Setup installs missing SoX and whisper.cpp through Homebrew (which may also update their dependencies),
-downloads the English Whisper base model (~148 MB), and verifies its SHA-256.
-No `npm install` is needed to use the extension; Pi supplies its runtime packages.
-The checkout must remain at the installed path.
+The checkout must remain at the installed path. The standalone setup script performs the requested
+installation directly; invoking it is your consent. It does not show Pi's confirmation dialog.
 
 ## Use
 
 | Action | Result |
 | --- | --- |
-| `/talk` then Enter | Start recording |
+| `/talk` then Enter | Offer setup if needed, then start recording |
 | Enter while recording | Stop and transcribe into the prompt |
 | Enter after reviewing | Send the prompt normally |
 | Esc | Cancel recording or transcription |
@@ -64,20 +93,20 @@ Allow your terminal microphone access when macOS asks. If it doesn't work:
 
 If macOS is still waiting for permission when recording times out, grant permission and retry.
 
-## Optional higher-accuracy model
+## Model choice
 
-The default `base.en` model favors a small download and lighter inference.
-Try `small.en` for potentially better recognition, at the cost of more memory and longer inference.
+The default `small.en` model favors recognition quality over download size and memory use.
+Use `base.en` if you prefer a smaller download and lighter inference.
 Accuracy and speed depend on your speech, recording conditions, and hardware.
 
 From the checkout:
 
 ```sh
-bash scripts/setup.sh small.en
-export PI_DICTATE_MODEL="$PWD/models/ggml-small.en.bin"
+bash scripts/setup.sh base.en
+export PI_DICTATE_MODEL="$PWD/models/ggml-base.en.bin"
 ```
 
-The larger model is ~488 MB and checksum-verified. Start Pi from your project in that shell
+The lighter model is ~148 MB and checksum-verified. Start Pi from your project in that shell
 to use it. Add the exported absolute path to your shell configuration if you want it persistent.
 Use `unset PI_DICTATE_MODEL` before launching Pi to return to the default.
 
@@ -89,7 +118,7 @@ Set these environment variables **before launching Pi**:
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
-| `PI_DICTATE_MODEL` | Checkout's `models/ggml-base.en.bin` | Absolute path to a whisper.cpp GGML model |
+| `PI_DICTATE_MODEL` | Checkout's `models/ggml-small.en.bin` | Absolute path to a whisper.cpp GGML model |
 | `PI_DICTATE_LANGUAGE` | `en` | Whisper language code |
 | `PI_DICTATE_SOX` | Found on PATH / Homebrew | Absolute path to SoX |
 | `PI_DICTATE_WHISPER` | Found on PATH / Homebrew | Absolute path to whisper-cli |
@@ -99,7 +128,8 @@ There is no cloud fallback.
 
 ## Privacy and limits
 
-- No API key, audio upload, runtime download, or telemetry in this extension.
+- No API key, audio upload, or telemetry in this extension.
+- Network access is limited to explicit setup: installing dependencies and downloading the model after your confirmation (or running the standalone setup script). Recording and transcription stay offline.
 - The microphone opens only when you run `/talk`, and closes before transcription.
 - Up to two minutes of PCM audio are buffered in memory.
 - Inference uses a private temporary directory, removed on success, failure, cancellation, or normal shutdown.
@@ -120,15 +150,17 @@ npm run test:tui
 ```
 
 Tests use synthetic audio and subprocess fixtures; they never open a microphone.
-The real Pi terminal smoke test needs Python 3 and runs at 80 and 40 columns.
+The real Pi terminal smoke test needs Python 3 and runs at 80 and 40 columns, including the first-run consent/progress flow with a synthetic installer.
 Neither test suite needs Homebrew, a Whisper model, or model credentials.
 See [CONTRIBUTING.md](CONTRIBUTING.md) and [VERIFICATION.md](VERIFICATION.md).
 
-To remove the installed extension, run from the checkout:
+To remove a Git-installed extension:
 
 ```sh
-pi remove "$PWD"
+pi remove git:github.com/gvkhosla/pi-dictate
 ```
+
+For a local-path installation, run `pi remove "$PWD"` from the checkout.
 
 Run `/reload` afterward. Removing the extension does not uninstall Homebrew packages or downloaded models.
 
