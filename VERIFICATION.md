@@ -8,7 +8,9 @@
 - The maintainer confirmed successful live `/talk` microphone dictation before this release.
 - Both `base.en` and `small.en` downloads passed SHA-256 verification. Both locally transcribed a generated audio sample as: “Please add a dark mode toggle to the settings page and run the tests.” This is a smoke test, not an accuracy benchmark.
 - The small model is optional; installing it does not change the default model.
-- GitHub CI is configured for macOS and Linux. Linux tests use subprocess fixtures; actual microphone capture is macOS-only.
+- GitHub CI passes on macOS and Linux, including the real Pi TUI smoke tests. Linux capture uses subprocess fixtures; actual microphone capture is macOS-only.
+- A clean release tree without node_modules or models loads into Pi and passes the synthetic TUI smoke tests.
+- `npm audit` reports zero known vulnerabilities in the locked development dependencies.
 - Audio, models, local paths, credentials, and generated terminal captures are excluded from the repository.
 
 ## Limits
